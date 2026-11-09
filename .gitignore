@@ -480,7 +480,8 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
-. v s c o d e /  
- * . d b  
- * . d b - j o u r n a l  
- 
+.vscode/
+*.db
+*.db-journal
+*.sqbpro
+ 
