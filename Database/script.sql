@@ -150,7 +150,8 @@ INSERT INTO Veiculos (Id, Placa, Modelo, Capacidade) VALUES
     (2, 'QRT2B34', 'Micro-ônibus Volare V8',         20),
     (3, 'QRU3C45', 'Micro-ônibus Agrale MA 9.2',     30),
     (4, 'QRV4D56', 'Ônibus Marcopolo Paradiso',      40),
-    (5, 'QRW5E67', 'Ônibus Busscar Vissta Buss',     46);
+    (5, 'QRW5E67', 'Ônibus Busscar Vissta Buss',     46),
+    (6, 'QRX6F78', 'Van Executiva',                   4);
 
 INSERT INTO Rotas (Id, Nome, DuracaoMinutos) VALUES
     (1, 'Santa Rosa de Viterbo - FATEC Ribeirão Preto',  70),
@@ -184,7 +185,7 @@ INSERT INTO Viagens (Id, RotaId, MotoristaId, VeiculoId, DataHoraPartida, Tipo, 
     (6,  1, 2, 1, '2026-11-19 06:30:00', 'Ida',   'Agendada'),
     (7,  2, 3, 5, '2026-11-19 22:30:00', 'Volta', 'Agendada'),
     (8,  5, 6, 5, '2026-11-23 06:30:00', 'Ida',   'Agendada'),
-    (9,  4, 5, 4, '2026-11-26 22:30:00', 'Volta', 'Agendada'),
+    (9,  4, 5, 6, '2026-11-26 22:30:00', 'Volta', 'Agendada'),
     (10, 3, 4, 3, '2026-11-24 06:15:00', 'Ida',   'Cancelada');
 
 -- Reservas: o ponto de cada reserva pertence à rota da viagem.
@@ -201,4 +202,7 @@ INSERT INTO Reservas (Id, ViagemId, AlunoId, PontoEmbarqueId, Status, CriadaEm) 
     (7,  5, 11, 7, 'Embarcado',  '2026-11-08 20:15:00'),
     (8,  6, 7,  1, 'Cancelada',  '2026-11-09 19:00:00'),
     (9,  6, 7,  1, 'Confirmada', '2026-11-10 09:15:00'),
-    (10, 7, 8,  4, 'Confirmada', '2026-11-10 09:40:00');
+    (10, 7, 8,  4, 'Confirmada', '2026-11-10 09:40:00'),
+    (11, 9, 8,  8, 'Confirmada', '2026-11-12 08:10:00'),
+    (12, 9, 9,  8, 'Confirmada', '2026-11-12 08:25:00'),
+    (13, 9, 10, 8, 'Confirmada', '2026-11-12 08:40:00');
