@@ -24,7 +24,7 @@ public class Veiculo
     }
 
     // Usado para editar. Passa pelas mesmas validações do construtor.
-    public void Atualizar(string placa, string modelo, int capacidade)
+    public void AlterarDados(string placa, string modelo, int capacidade)
     {
         Placa = ValidarPlaca(placa);
         Modelo = ValidarModelo(modelo);
