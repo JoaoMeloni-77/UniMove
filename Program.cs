@@ -39,3 +39,7 @@ app.MapControllerRoute(
 
 
 app.Run();
+
+builder.Services.AddScoped<IConexaoFactory, ConexaoFactory>();
+builder.Services.AddScoped<IInstituicaoRepository, InstituicaoRepository>();
+builder.Services.AddScoped<IVeiculoRepository, VeiculoRepository>();
