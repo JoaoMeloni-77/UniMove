@@ -1,0 +1,21 @@
+@model UniMove.Models.ViewModels.MotoristaViewModel
+
+@{
+    ViewData["Title"] = "Detalhes do motorista";
+}
+
+<h1 class="h3 mb-3">Detalhes do motorista</h1>
+
+<dl class="row">
+    <dt class="col-sm-2">Nome</dt>
+    <dd class="col-sm-10">@Model.Nome</dd>
+    <dt class="col-sm-2">E-mail</dt>
+    <dd class="col-sm-10">@Model.Email</dd>
+    <dt class="col-sm-2">CNH</dt>
+    <dd class="col-sm-10">@Model.Cnh</dd>
+    <dt class="col-sm-2">Telefone</dt>
+    <dd class="col-sm-10">@Model.Telefone</dd>
+</dl>
+
+<a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Editar</a>
+<a class="btn btn-outline-secondary" asp-action="Index">Voltar</a>

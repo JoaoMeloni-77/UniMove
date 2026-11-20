@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IConexaoFactory, ConexaoFactory>();
 builder.Services.AddScoped<IInstituicaoRepository, InstituicaoRepository>();
+builder.Services.AddScoped<IMotoristaRepository, MotoristaRepository>();
 
 var app = builder.Build();
 
