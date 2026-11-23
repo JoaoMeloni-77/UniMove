@@ -1,0 +1,37 @@
+@model UniMove.Models.ViewModels.RotaViewModel
+
+@{
+    ViewData["Title"] = "Editar rota";
+}
+
+<h1 class="h3 mb-3">Editar rota</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit" asp-route-id="@Model.Id" method="post">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="mb-3">
+                <label asp-for="Nome" class="form-label"></label>
+                <input asp-for="Nome" class="form-control" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="DuracaoMinutos" class="form-label"></label>
+                <input asp-for="DuracaoMinutos" class="form-control" />
+                <span asp-validation-for="DuracaoMinutos" class="text-danger"></span>
+            </div>
+
+            <p class="text-muted">Para mudar os pontos de embarque, use a tela de detalhes da rota.</p>
+
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <a class="btn btn-outline-secondary" asp-action="Index">Cancelar</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
