@@ -1,0 +1,27 @@
+@model UniMove.Models.ViewModels.RotaViewModel
+
+@{
+    ViewData["Title"] = "Excluir rota";
+}
+
+<h1 class="h3 mb-3">Excluir rota</h1>
+
+<div class="alert alert-warning">
+    Tem certeza de que deseja excluir esta rota? Os pontos de embarque dela também serão excluídos.
+</div>
+
+<dl class="row">
+    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Nome)</dt>
+    <dd class="col-sm-9">@Model.Nome</dd>
+
+    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.DuracaoMinutos)</dt>
+    <dd class="col-sm-9">@Model.DuracaoMinutos</dd>
+
+    <dt class="col-sm-3">Pontos de embarque</dt>
+    <dd class="col-sm-9">@Model.Pontos.Count</dd>
+</dl>
+
+<form asp-action="Delete" asp-route-id="@Model.Id" method="post">
+    <button type="submit" class="btn btn-danger">Excluir</button>
+    <a class="btn btn-outline-secondary" asp-action="Index">Cancelar</a>
+</form>
