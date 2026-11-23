@@ -8,6 +8,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IConexaoFactory, ConexaoFactory>();
 builder.Services.AddScoped<IInstituicaoRepository, InstituicaoRepository>();
 builder.Services.AddScoped<IMotoristaRepository, MotoristaRepository>();
+builder.Services.AddScoped<IVeiculoRepository, VeiculoRepository>();
 builder.Services.AddScoped<IRotaRepository, RotaRepository>();
 
 var app = builder.Build();
@@ -41,3 +42,7 @@ app.MapControllerRoute(
 
 
 app.Run();
+
+builder.Services.AddScoped<IConexaoFactory, ConexaoFactory>();
+builder.Services.AddScoped<IInstituicaoRepository, InstituicaoRepository>();
+builder.Services.AddScoped<IVeiculoRepository, VeiculoRepository>();

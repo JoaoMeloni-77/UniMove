@@ -1,0 +1,41 @@
+@model UniMove.Models.ViewModels.VeiculoViewModel
+
+@{
+    ViewData["Title"] = "Editar veículo";
+}
+
+<h1 class="h3 mb-3">Editar veículo</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit" asp-route-id="@Model.Id" method="post">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="mb-3">
+                <label asp-for="Placa" class="form-label"></label>
+                <input asp-for="Placa" class="form-control" />
+                <span asp-validation-for="Placa" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Modelo" class="form-label"></label>
+                <input asp-for="Modelo" class="form-control" />
+                <span asp-validation-for="Modelo" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Capacidade" class="form-label"></label>
+                <input asp-for="Capacidade" class="form-control" />
+                <span asp-validation-for="Capacidade" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <a class="btn btn-outline-secondary" asp-action="Index">Cancelar</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
