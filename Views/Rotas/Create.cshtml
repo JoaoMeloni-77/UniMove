@@ -1,0 +1,36 @@
+@model UniMove.Models.ViewModels.RotaViewModel
+
+@{
+    ViewData["Title"] = "Nova rota";
+}
+
+<h1 class="h3 mb-3">Nova rota</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="Nome" class="form-label"></label>
+                <input asp-for="Nome" class="form-control" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="DuracaoMinutos" class="form-label"></label>
+                <input asp-for="DuracaoMinutos" class="form-control" />
+                <span asp-validation-for="DuracaoMinutos" class="text-danger"></span>
+            </div>
+
+            <p class="text-muted">Os pontos de embarque são adicionados depois, na tela de detalhes da rota.</p>
+
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <a class="btn btn-outline-secondary" asp-action="Index">Cancelar</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

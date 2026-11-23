@@ -1,0 +1,25 @@
+@model UniMove.Models.ViewModels.VeiculoViewModel
+
+@{
+    ViewData["Title"] = "Excluir veículo";
+}
+
+<h1 class="h3 mb-3">Excluir veículo</h1>
+
+<div class="alert alert-warning">Tem certeza de que deseja excluir este veículo?</div>
+
+<dl class="row">
+    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Placa)</dt>
+    <dd class="col-sm-9">@Model.Placa</dd>
+
+    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Modelo)</dt>
+    <dd class="col-sm-9">@Model.Modelo</dd>
+
+    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Capacidade)</dt>
+    <dd class="col-sm-9">@Model.Capacidade</dd>
+</dl>
+
+<form asp-action="Delete" asp-route-id="@Model.Id" method="post">
+    <button type="submit" class="btn btn-danger">Excluir</button>
+    <a class="btn btn-outline-secondary" asp-action="Index">Cancelar</a>
+</form>
