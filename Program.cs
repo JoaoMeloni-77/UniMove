@@ -36,6 +36,7 @@ builder.Services.AddScoped<AutenticacaoService>();
 builder.Services.AddScoped<IReservaRepository, ReservaRepository>();
 builder.Services.AddScoped<ReservaService>();
 builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
+builder.Services.AddScoped<OperacaoViagemService>();
 
 var app = builder.Build();
 

@@ -3,6 +3,7 @@ using global::Dapper;
 using UniMove.Exceptions;
 using UniMove.Models;
 using UniMove.Repositories.Interfaces;
+using UniMove.Models.ViewModels;
 
 namespace UniMove.Repositories.Dapper;
 
@@ -132,6 +133,46 @@ public class ViagemRepository : IViagemRepository
                 Inicio = inicio.ToString(FormatoData, CultureInfo.InvariantCulture),
                 Fim = fim.ToString(FormatoData, CultureInfo.InvariantCulture)
             }) > 0;
+    }
+
+        private const string SelectResumo =
+        @"SELECT v.Id, v.MotoristaId, v.DataHoraPartida, v.Tipo, v.Status,
+                 r.Nome AS RotaNome,
+                 ve.Placa || ' - ' || ve.Modelo AS VeiculoDescricao,
+                 ve.Capacidade,
+                 (SELECT COUNT(*) FROM Reservas x
+                  WHERE x.ViagemId = v.Id AND x.Status <> 'Cancelada') AS ReservasAtivas
+          FROM Viagens v
+          INNER JOIN Rotas r ON r.Id = v.RotaId
+          INNER JOIN Veiculos ve ON ve.Id = v.VeiculoId";
+
+    public IEnumerable<ViagemMotoristaViewModel> ObterViagensDoMotorista(int motoristaId)
+    {
+        using var conexao = _fabrica.CriarConexao();
+        return conexao.Query<ViagemMotoristaViewModel>(
+            SelectResumo + " WHERE v.MotoristaId = @Id ORDER BY v.DataHoraPartida",
+            new { Id = motoristaId }).ToList();
+    }
+
+    public ViagemMotoristaViewModel? ObterResumo(int viagemId)
+    {
+        using var conexao = _fabrica.CriarConexao();
+        return conexao.QueryFirstOrDefault<ViagemMotoristaViewModel>(
+            SelectResumo + " WHERE v.Id = @Id",
+            new { Id = viagemId });
+    }
+
+    public IEnumerable<PassageiroEmbarqueViewModel> ObterPassageiros(int viagemId)
+    {
+        using var conexao = _fabrica.CriarConexao();
+        return conexao.Query<PassageiroEmbarqueViewModel>(
+            @"SELECT r.Id AS ReservaId, u.Nome AS NomeAluno, p.Nome AS PontoNome, r.Status
+              FROM Reservas r
+              INNER JOIN Usuarios u ON u.Id = r.AlunoId
+              INNER JOIN PontosEmbarque p ON p.Id = r.PontoEmbarqueId
+              WHERE r.ViagemId = @Id AND r.Status <> 'Cancelada'
+              ORDER BY p.Ordem, u.Nome",
+            new { Id = viagemId }).ToList();
     }
 
     // Data, tipo e status vão como texto, no formato que o script.sql usa
