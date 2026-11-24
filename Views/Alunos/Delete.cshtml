@@ -1,0 +1,16 @@
+@model UniMove.Models.ViewModels.AlunoViewModel
+
+@{
+    ViewData["Title"] = "Excluir aluno";
+}
+
+<h1 class="h3 mb-3">Excluir aluno</h1>
+
+<div class="alert alert-warning">
+    Tem certeza de que deseja excluir <strong>@Model.Nome</strong> (matrícula @Model.Matricula)?
+</div>
+
+<form asp-action="Delete" asp-route-id="@Model.Id" method="post">
+    <button type="submit" class="btn btn-danger">Excluir</button>
+    <a class="btn btn-outline-secondary" asp-action="Index">Cancelar</a>
+</form>
