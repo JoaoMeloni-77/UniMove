@@ -1,5 +1,6 @@
 using UniMove.Repositories.Dapper;
 using UniMove.Repositories.Interfaces;
+using UniMove.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IConexaoFactory, ConexaoFactory>();
 builder.Services.AddScoped<IInstituicaoRepository, InstituicaoRepository>();
 builder.Services.AddScoped<IMotoristaRepository, MotoristaRepository>();
+builder.Services.AddScoped<IViagemRepository, ViagemRepository>();
+builder.Services.AddScoped<IViagemService, ViagemService>();
 
 var app = builder.Build();
 
