@@ -139,6 +139,7 @@ public class ViagensController : Controller
     }
 
     // POST: /Viagens/Cancelar/5
+    // POST: /Viagens/Cancelar/5
     [HttpPost]
     [ValidateAntiForgeryToken]
     public IActionResult Cancelar(int id)
@@ -148,6 +149,10 @@ public class ViagensController : Controller
             var viagem = _repositorio.ObterPorId(id);
             if (viagem == null)
                 return NaoEncontrada();
+
+            if (_repositorio.ContarReservasAtivas(id) > 0)
+                throw new RegraNegocioException(
+                    "Não é possível cancelar: a viagem possui reservas ativas.");
 
             viagem.Cancelar();
             _repositorio.Atualizar(viagem);
