@@ -1,0 +1,25 @@
+@model UniMove.Models.ViewModels.ViagemViewModel
+
+@{
+    ViewData["Title"] = "Excluir viagem";
+}
+
+<h1 class="h3 mb-3">Excluir viagem</h1>
+
+<div class="alert alert-warning">Tem certeza de que deseja excluir esta viagem?</div>
+
+<dl class="row">
+    <dt class="col-sm-3">Rota</dt>
+    <dd class="col-sm-9">@Model.RotaNome</dd>
+
+    <dt class="col-sm-3">Partida</dt>
+    <dd class="col-sm-9">@Model.DataHoraPartida.ToString("dd/MM/yyyy HH:mm")</dd>
+
+    <dt class="col-sm-3">Status</dt>
+    <dd class="col-sm-9"><span class="badge @Model.ClasseStatus">@Model.Status</span></dd>
+</dl>
+
+<form asp-action="Delete" asp-route-id="@Model.Id" method="post">
+    <button type="submit" class="btn btn-danger">Excluir</button>
+    <a class="btn btn-outline-secondary" asp-action="Index">Cancelar</a>
+</form>
