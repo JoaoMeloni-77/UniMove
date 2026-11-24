@@ -22,6 +22,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         opcoes.AccessDeniedPath = "/Account/AccessDenied";
         opcoes.ExpireTimeSpan = TimeSpan.FromHours(8);
     });
+
 builder.Services.AddScoped<IConexaoFactory, ConexaoFactory>();
 builder.Services.AddScoped<IInstituicaoRepository, InstituicaoRepository>();
 builder.Services.AddScoped<IMotoristaRepository, MotoristaRepository>();
@@ -30,6 +31,8 @@ builder.Services.AddScoped<IVeiculoRepository, VeiculoRepository>();
 builder.Services.AddScoped<IRotaRepository, RotaRepository>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<AutenticacaoService>();
+builder.Services.AddScoped<IReservaRepository, ReservaRepository>();
+builder.Services.AddScoped<ReservaService>();
 
 var app = builder.Build();
 
@@ -60,9 +63,4 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
-
 app.Run();
-
-builder.Services.AddScoped<IConexaoFactory, ConexaoFactory>();
-builder.Services.AddScoped<IInstituicaoRepository, InstituicaoRepository>();
-builder.Services.AddScoped<IVeiculoRepository, VeiculoRepository>();
