@@ -1,0 +1,39 @@
+@model UniMove.Models.ViewModels.ViagemViewModel
+
+@{
+    ViewData["Title"] = "Detalhes da viagem";
+}
+
+<h1 class="h3 mb-3">Detalhes da viagem</h1>
+
+<dl class="row">
+    <dt class="col-sm-3">Rota</dt>
+    <dd class="col-sm-9">@Model.RotaNome</dd>
+
+    <dt class="col-sm-3">Motorista</dt>
+    <dd class="col-sm-9">@Model.MotoristaNome</dd>
+
+    <dt class="col-sm-3">Veículo</dt>
+    <dd class="col-sm-9">@Model.VeiculoDescricao</dd>
+
+    <dt class="col-sm-3">Partida</dt>
+    <dd class="col-sm-9">@Model.DataHoraPartida.ToString("dd/MM/yyyy HH:mm")</dd>
+
+    <dt class="col-sm-3">Chegada prevista</dt>
+    <dd class="col-sm-9">@(Model.ChegadaPrevista?.ToString("dd/MM/yyyy HH:mm") ?? "-")</dd>
+
+    <dt class="col-sm-3">Tipo</dt>
+    <dd class="col-sm-9">@Model.Tipo</dd>
+
+    <dt class="col-sm-3">Status</dt>
+    <dd class="col-sm-9"><span class="badge @Model.ClasseStatus">@Model.Status</span></dd>
+
+    <dt class="col-sm-3">Reservas ativas</dt>
+    <dd class="col-sm-9">@Model.ReservasAtivas de @Model.Capacidade lugares</dd>
+</dl>
+
+@if (Model.EstaAgendada)
+{
+    <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@Model.Id">Editar</a>
+}
+<a class="btn btn-outline-secondary" asp-action="Index">Voltar</a>

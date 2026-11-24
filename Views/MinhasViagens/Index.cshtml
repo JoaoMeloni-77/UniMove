@@ -1,0 +1,46 @@
+@model IEnumerable<UniMove.Models.ViewModels.ViagemMotoristaViewModel>
+
+@{
+    ViewData["Title"] = "Minhas viagens";
+}
+
+<h1 class="h3 mb-3">Minhas viagens</h1>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">Você não tem viagens atribuídas.</div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>Partida</th>
+                    <th>Tipo</th>
+                    <th>Rota</th>
+                    <th>Veículo</th>
+                    <th>Reservas</th>
+                    <th>Status</th>
+                    <th class="text-end">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.DataHoraPartida.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>@item.Tipo</td>
+                        <td>@item.RotaNome</td>
+                        <td>@item.VeiculoDescricao</td>
+                        <td>@item.ReservasAtivas / @item.Capacidade</td>
+                        <td><span class="badge @item.ClasseStatus">@item.Status</span></td>
+                        <td class="text-end">
+                            <a class="btn btn-sm btn-outline-primary" asp-action="Details" asp-route-id="@item.Id">Abrir</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
