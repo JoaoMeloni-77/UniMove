@@ -5,8 +5,11 @@ using UniMove.Models;
 using UniMove.Models.ViewModels;
 using UniMove.Repositories.Interfaces;
 using UniMove.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace UniMove.Controllers;
+
+[Authorize(Roles = "Administrador")]
 
 public class ViagensController : Controller
 {
