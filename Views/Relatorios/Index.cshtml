@@ -1,0 +1,68 @@
+@model UniMove.Models.ViewModels.RelatorioViewModel
+
+@{
+    ViewData["Title"] = "Relatório de passageiros";
+}
+
+<h1 class="h3 mb-3">Relatório de passageiros</h1>
+
+<form method="get" asp-action="Index" class="row g-3 mb-4">
+    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+    <div class="col-md-3">
+        <label asp-for="InstituicaoId" class="form-label">Instituição</label>
+        <select asp-for="InstituicaoId" asp-items="Model.Instituicoes" class="form-select">
+            <option value="0">Todas</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <label asp-for="DataInicial" class="form-label">Data inicial</label>
+        <input asp-for="DataInicial" type="date" class="form-control" />
+    </div>
+    <div class="col-md-2">
+        <label asp-for="DataFinal" class="form-label">Data final</label>
+        <input asp-for="DataFinal" type="date" class="form-control" />
+    </div>
+    <div class="col-md-3">
+        <label asp-for="Turno" class="form-label">Horário</label>
+        <select asp-for="Turno" class="form-select">
+            <option value="todos">Todos</option>
+            <option value="manha">Manhã (até 11h59)</option>
+            <option value="tarde">Tarde (12h às 17h59)</option>
+            <option value="noite">Noite (a partir das 18h)</option>
+        </select>
+    </div>
+    <div class="col-md-2 d-flex align-items-end">
+        <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+    </div>
+</form>
+
+@if (!Model.Linhas.Any())
+{
+    <div class="alert alert-info">Nenhum passageiro encontrado para os filtros escolhidos.</div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr><th>Partida</th><th>Tipo</th><th>Rota</th><th>Instituição</th><th class="text-end">Passageiros</th></tr>
+            </thead>
+            <tbody>
+                @foreach (var l in Model.Linhas)
+                {
+                    <tr>
+                        <td>@l.DataHoraPartida.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>@l.Tipo</td>
+                        <td>@l.Rota</td>
+                        <td>@l.Instituicao</td>
+                        <td class="text-end">@l.Passageiros</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr><th colspan="4" class="text-end">Total</th><th class="text-end">@Model.TotalPassageiros</th></tr>
+            </tfoot>
+        </table>
+    </div>
+}
