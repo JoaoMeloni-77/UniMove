@@ -1,0 +1,38 @@
+@model UniMove.Models.ViewModels.NovaReservaViewModel
+
+@{
+    ViewData["Title"] = "Nova reserva";
+}
+
+<h1 class="h3 mb-3">Nova reserva</h1>
+
+<dl class="row">
+    <dt class="col-sm-2">Rota</dt>
+    <dd class="col-sm-10">@Model.Rota</dd>
+    <dt class="col-sm-2">Partida</dt>
+    <dd class="col-sm-10">@Model.DataHoraPartida.ToString("dd/MM/yyyy HH:mm")</dd>
+</dl>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+            <input type="hidden" asp-for="ViagemId" />
+
+            <div class="mb-3">
+                <label asp-for="PontoEmbarqueId" class="form-label"></label>
+                <select asp-for="PontoEmbarqueId" asp-items="Model.Pontos" class="form-select">
+                    <option value="0">Selecione...</option>
+                </select>
+                <span asp-validation-for="PontoEmbarqueId" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Confirmar reserva</button>
+            <a class="btn btn-outline-secondary" asp-action="Disponiveis">Voltar</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,47 @@
+@model List<UniMove.Models.ViewModels.ViagemDisponivelViewModel>
+
+@{
+    ViewData["Title"] = "Viagens disponíveis";
+}
+
+<h1 class="h3 mb-3">Viagens disponíveis</h1>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">Não há viagens agendadas no momento.</div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr><th>Partida</th><th>Tipo</th><th>Rota</th><th>Vagas</th><th class="text-end">Ação</th></tr>
+            </thead>
+            <tbody>
+                @foreach (var v in Model)
+                {
+                    <tr>
+                        <td>@v.DataHoraPartida.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>@v.Tipo</td>
+                        <td>@v.Rota</td>
+                        <td>@v.Vagas de @v.Capacidade</td>
+                        <td class="text-end">
+                            @if (v.AlunoJaReservou)
+                            {
+                                <span class="badge bg-success">Reservado</span>
+                            }
+                            else if (v.Vagas <= 0)
+                            {
+                                <span class="badge bg-danger">Lotada</span>
+                            }
+                            else
+                            {
+                                <a class="btn btn-sm btn-primary" asp-action="Create" asp-route-viagemId="@v.ViagemId">Reservar</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
