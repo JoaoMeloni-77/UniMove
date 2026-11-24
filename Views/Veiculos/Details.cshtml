@@ -1,0 +1,21 @@
+@model UniMove.Models.ViewModels.VeiculoViewModel
+
+@{
+    ViewData["Title"] = "Detalhes do veículo";
+}
+
+<h1 class="h3 mb-3">Detalhes do veículo</h1>
+
+<dl class="row">
+    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Placa)</dt>
+    <dd class="col-sm-9">@Model.Placa</dd>
+
+    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Modelo)</dt>
+    <dd class="col-sm-9">@Model.Modelo</dd>
+
+    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Capacidade)</dt>
+    <dd class="col-sm-9">@Model.Capacidade</dd>
+</dl>
+
+<a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@Model.Id">Editar</a>
+<a class="btn btn-outline-secondary" asp-action="Index">Voltar</a>

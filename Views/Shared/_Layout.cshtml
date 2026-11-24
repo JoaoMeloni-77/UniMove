@@ -1,5 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+@{
+    var logado = User.Identity?.IsAuthenticated == true;
+    var perfil = User.FindFirstValue(ClaimTypes.Role);
+}
+<!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,6 +13,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
+
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -15,15 +22,36 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="menu">
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Instituicoes" asp-action="Index">Instituições</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Motoristas" asp-action="Index">Motoristas</a>
-                        </li>
-                    </ul>
+               <div class="collapse navbar-collapse" id="menu">
+                  @if (logado)
+                    {
+                        <ul class="navbar-nav me-auto">
+                            @if (perfil == "Administrador")
+                                {
+                                    <li class="nav-item"><a class="nav-link" asp-controller="Dashboard" asp-action="Index">Painel</a></li>
+                                    <li class="nav-item"><a class="nav-link" asp-controller="Instituicoes" asp-action="Index">Instituições</a></li>
+                                    <li class="nav-item"><a class="nav-link" asp-controller="Alunos" asp-action="Index">Alunos</a></li>
+                                    <li class="nav-item"><a class="nav-link" asp-controller="Motoristas" asp-action="Index">Motoristas</a></li>
+                                    <li class="nav-item"><a class="nav-link" asp-controller="Veiculos" asp-action="Index">Veículos</a></li>
+                                    <li class="nav-item"><a class="nav-link" asp-controller="Rotas" asp-action="Index">Rotas</a></li>
+                                    <li class="nav-item"><a class="nav-link" asp-controller="Viagens" asp-action="Index">Viagens</a></li>
+                                    <li class="nav-item"><a class="nav-link" asp-controller="Relatorios" asp-action="Index">Relatório</a></li>
+                                }
+                            else if (perfil == "Aluno")
+                                {
+                                    <li class="nav-item"><a class="nav-link" asp-controller="Reservas" asp-action="Index">Minhas reservas</a></li>
+                                    <li class="nav-item"><a class="nav-link" asp-controller="Reservas" asp-action="Disponiveis">Viagens disponíveis</a></li>
+                                }
+                            else if (perfil == "Motorista")
+                                {
+                                    <li class="nav-item"><a class="nav-link" href="@User.FindFirstValue("PainelInicial")">Minhas viagens</a></li>
+                                }
+                       </ul>
+                       <form asp-controller="Account" asp-action="Logout" method="post" class="d-flex align-items-center text-white">
+                            <span class="me-3">@User.Identity!.Name (@perfil)</span>
+                            <button type="submit" class="btn btn-sm btn-light">Sair</button>
+                       </form>
+                    }
                 </div>
             </div>
         </nav>
@@ -57,4 +85,5 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>

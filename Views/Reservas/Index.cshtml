@@ -1,0 +1,49 @@
+@model List<UniMove.Models.ViewModels.MinhaReservaViewModel>
+
+@{
+    ViewData["Title"] = "Minhas reservas";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">Minhas reservas</h1>
+    <a class="btn btn-primary" asp-action="Disponiveis">Reservar viagem</a>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">Você ainda não possui reservas.</div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr>
+                    <th>Partida</th><th>Tipo</th><th>Rota</th><th>Embarque</th>
+                    <th>Viagem</th><th>Reserva</th><th class="text-end">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var r in Model)
+                {
+                    <tr>
+                        <td>@r.DataHoraPartida.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>@r.Tipo</td>
+                        <td>@r.Rota</td>
+                        <td>@r.Ponto</td>
+                        <td>@r.StatusViagem</td>
+                        <td><span class="badge @(r.StatusReserva == UniMove.Models.Enums.StatusReserva.Cancelada ? "bg-secondary" : "bg-success")">@r.StatusReserva</span></td>
+                        <td class="text-end">
+                            @if (r.PodeCancelar)
+                            {
+                                <form asp-action="Cancelar" asp-route-id="@r.ReservaId" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">Cancelar</button>
+                                </form>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
