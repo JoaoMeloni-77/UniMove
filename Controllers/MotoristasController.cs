@@ -3,9 +3,11 @@ using UniMove.Exceptions;
 using UniMove.Models;
 using UniMove.Models.ViewModels;
 using UniMove.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace UniMove.Controllers;
 
+[Authorize(Roles = "Administrador")]
 public class MotoristasController : Controller
 {
     private const string SenhaProvisoria = "HASH_PROVISORIO";
