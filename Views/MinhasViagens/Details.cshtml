@@ -1,0 +1,81 @@
+@using UniMove.Models.Enums
+@model UniMove.Models.ViewModels.ViagemMotoristaViewModel
+
+@{
+    ViewData["Title"] = "Viagem";
+}
+
+<h1 class="h3 mb-3">Viagem de @Model.DataHoraPartida.ToString("dd/MM/yyyy HH:mm")</h1>
+
+<dl class="row">
+    <dt class="col-sm-3">Rota</dt>
+    <dd class="col-sm-9">@Model.RotaNome</dd>
+
+    <dt class="col-sm-3">Veículo</dt>
+    <dd class="col-sm-9">@Model.VeiculoDescricao</dd>
+
+    <dt class="col-sm-3">Tipo</dt>
+    <dd class="col-sm-9">@Model.Tipo</dd>
+
+    <dt class="col-sm-3">Status</dt>
+    <dd class="col-sm-9"><span class="badge @Model.ClasseStatus">@Model.Status</span></dd>
+
+    <dt class="col-sm-3">Reservas ativas</dt>
+    <dd class="col-sm-9">@Model.ReservasAtivas de @Model.Capacidade lugares</dd>
+</dl>
+
+<div class="mb-4">
+    @if (Model.PodeIniciar)
+    {
+        <form asp-action="Iniciar" asp-route-id="@Model.Id" method="post" class="d-inline">
+            <button type="submit" class="btn btn-success">Iniciar viagem</button>
+        </form>
+    }
+    @if (Model.PodeFinalizar)
+    {
+        <form asp-action="Finalizar" asp-route-id="@Model.Id" method="post" class="d-inline">
+            <button type="submit" class="btn btn-danger">Finalizar viagem</button>
+        </form>
+    }
+    <a class="btn btn-outline-secondary" asp-action="Index">Voltar</a>
+</div>
+
+<h2 class="h5">Passageiros</h2>
+
+@if (!Model.Passageiros.Any())
+{
+    <div class="alert alert-info">Nenhum passageiro com reserva ativa.</div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr>
+                    <th>Aluno</th>
+                    <th>Ponto de embarque</th>
+                    <th>Status</th>
+                    <th class="text-end">Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var passageiro in Model.Passageiros)
+                {
+                    <tr>
+                        <td>@passageiro.NomeAluno</td>
+                        <td>@passageiro.PontoNome</td>
+                        <td>@passageiro.Status</td>
+                        <td class="text-end">
+                            @if (Model.PodeFinalizar && passageiro.Status == StatusReserva.Confirmada)
+                            {
+                                <form asp-action="ConfirmarEmbarque" asp-route-id="@Model.Id" asp-route-reservaId="@passageiro.ReservaId" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-primary">Confirmar embarque</button>
+                                </form>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
